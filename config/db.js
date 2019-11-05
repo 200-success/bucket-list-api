@@ -5,7 +5,7 @@ const mongooseBaseName = 'express-api-template'
 
 // create the mongodb uri for development and test
 const database = {
-  development: `mongodb://localhost/${mongooseBaseName}-development`,
+  development: `https://tranquil-journey-54950.herokuapp.com`,
   test: `mongodb://localhost/${mongooseBaseName}-test`
 }
 
