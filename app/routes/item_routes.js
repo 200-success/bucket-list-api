@@ -44,7 +44,7 @@ router.get('/items', requireToken, (req, res, next) => {
 
 // SHOW
 // GET /items/
-router.get('/items/:id', requireToken, (req, res, next) => {
+router.get('/items/:id', (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
   Item.findById(req.params.id)
     .then(handle404)

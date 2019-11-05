@@ -1,11 +1,11 @@
 'use strict'
 
 // creating a base name for the mongodb
-const mongooseBaseName = 'express-api-template'
+const mongooseBaseName = 'bucket-list-api'
 
 // create the mongodb uri for development and test
 const database = {
-  development: `https://tranquil-journey-54950.herokuapp.com`,
+  development: `mongodb://localhost/${mongooseBaseName}-development`,
   test: `mongodb://localhost/${mongooseBaseName}-test`
 }
 
