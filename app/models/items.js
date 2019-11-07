@@ -21,6 +21,9 @@ const itemSchema = new mongoose.Schema({
   difficultyScale: {
     type: Number
   },
+  completed: {
+    type: Boolean
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
