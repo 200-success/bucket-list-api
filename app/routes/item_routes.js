@@ -31,7 +31,7 @@ const router = express.Router()
 router.get('/items', requireToken, (req, res, next) => {
   Item.find({owner: req.user._id})
     .then(items => {
-      console.log('within get/items', items)
+      // console.log('within get/items', items)
       const usersItems = []
       items.map(item => {
         // does this item belong to the user? if so, add to usersItems
@@ -53,15 +53,14 @@ router.get('/items', requireToken, (req, res, next) => {
 
 // SHOW
 // GET /items/
+// SHOW
+// GET /examples/5a7db6c74d55bc51bdf39793
 router.get('/items/:id', requireToken, (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
   Item.findById(req.params.id)
     .then(handle404)
-    // if `findById` is succesful, respond with 200 and "item" JSON
-    .then(item => {
-      // logic to restrict item
-      return res.status(200).json({ item: item.toObject() })
-    })
+    // if `findById` is succesful, respond with 200 and "example" JSON
+    .then(item => res.status(200).json({ item: item.toObject() }))
     // if an error occurs, pass it to the handler
     .catch(next)
 })
