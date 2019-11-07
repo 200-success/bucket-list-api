@@ -29,12 +29,21 @@ const router = express.Router()
 // INDEX
 // GET /examples
 router.get('/items', requireToken, (req, res, next) => {
-  Item.find()
+  Item.find({owner: req.user._id})
     .then(items => {
+      console.log('within get/items', items)
+      const usersItems = []
+      items.map(item => {
+        // does this item belong to the user? if so, add to usersItems
+        // (requestObject.user._id.equals(resource.owner))
+        // req
+        // item
+        usersItems.push(item.toObject())
+      })
       // `items` will be an array of Mongoose documents
       // we want to convert each one to a POJO, so we use `.map` to
       // apply `.toObject` to each one
-      return items.map(item => item.toObject())
+      return usersItems
     })
     // respond with status 200 and JSON of the items
     .then(items => res.status(200).json({ items }))
@@ -44,12 +53,15 @@ router.get('/items', requireToken, (req, res, next) => {
 
 // SHOW
 // GET /items/
-router.get('/items/:id', (req, res, next) => {
+router.get('/items/:id', requireToken, (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
   Item.findById(req.params.id)
     .then(handle404)
     // if `findById` is succesful, respond with 200 and "item" JSON
-    .then(item => res.status(200).json({ item: item.toObject() }))
+    .then(item => {
+      // logic to restrict item
+      return res.status(200).json({ item: item.toObject() })
+    })
     // if an error occurs, pass it to the handler
     .catch(next)
 })
